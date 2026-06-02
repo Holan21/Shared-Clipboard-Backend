@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shared_Clipboard_Backend.Controllers
+namespace Shared_Clipboard_Backend.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:ApiVersion}/[controller]")]

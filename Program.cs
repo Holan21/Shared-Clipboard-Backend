@@ -1,4 +1,4 @@
-using Shared_Clipboard_Backend.Extensions;
+using Shared_Clipboard_Backend.Extensions.ConfigApplication;
 
 namespace Shared_Clipboard_Backend
 {
@@ -8,17 +8,22 @@ namespace Shared_Clipboard_Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var app =builder
-                .ConfigureApiVersions()
+            var app = builder.AddApiVersions()
+                .AddControllers()
                 .AddSwagger()
-                .ConfigureControllers()
+                .AddDatabase()
                 .Build();
 
-            app.ConfigureApplication();
+            if (app.Environment.IsDevelopment()) 
+                app.ShowSwagger();
 
+            app.UseHttpsRedirection()
+               .UseAuthorization()
+               .UseAuthentication();
+
+            app.MapControllers();
             app.Run();
-        }
 
-        
+        }
     }
 }
