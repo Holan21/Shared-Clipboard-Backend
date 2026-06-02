@@ -1,4 +1,5 @@
-﻿using Shared_Clipboard_Backend.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared_Clipboard_Backend.Data;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {

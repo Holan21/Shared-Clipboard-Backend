@@ -2,7 +2,7 @@
 {
     public class Devices
     {
-        public Guid Id { get; set; }
+        public uint Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string OSName { get; set; } = string.Empty;
         public User User { get; set; }

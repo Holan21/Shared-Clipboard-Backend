@@ -2,7 +2,8 @@
 {
     public class ClipboardItem
     {
-        public Guid Id { get; set; }
+        public uint Id { get; set; }
         public string Data { get; set; } = string.Empty;
+        public User User { get; set;}
     }
 }
