@@ -7,7 +7,7 @@ namespace Shared_Clipboard_Backend.Data
     {
         DbSet<User> Users { get; set; }
         DbSet<Devices> Devices { get; set; }
-        DbSet<SharedClipboard> SharedClipboard { get; set; }
+        DbSet<ClipboardItem> SharedClipboard { get; set; }
 
     }
 }
