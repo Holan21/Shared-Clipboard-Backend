@@ -1,27 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Shared_Clipboard_Backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class AuthController : Controller
+    [Route("api/v{version:ApiVersion}/[controller]")]
+    [ApiVersion("1.0")]
+    public class AuthController : ControllerBase
     {
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login()
         {
-            return null;
+            return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register()
         {
-            return null;
+            return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
-            return null;
+            return Ok();
         }
     }
 }
