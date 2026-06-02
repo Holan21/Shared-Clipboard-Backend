@@ -12,6 +12,6 @@ namespace Shared_Clipboard_Backend.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? LastLogin { get; set; } = null;
         public List<Devices> Devices { get; set; } = [];
-        public SharedClipboard SharedClipboard { get; set; }
+        public List<ClipboardItem> SharedClipboard { get; set; } = []
     }
 }

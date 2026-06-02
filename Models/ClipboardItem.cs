@@ -1,8 +1,8 @@
 ﻿namespace Shared_Clipboard_Backend.Models
 {
-    public class SharedClipboard
+    public class ClipboardItem
     {
         public Guid Id { get; set; }
-        public List<string> Data { get; set; } = [];
+        public string Data { get; set; } = string.Empty;
     }
 }
