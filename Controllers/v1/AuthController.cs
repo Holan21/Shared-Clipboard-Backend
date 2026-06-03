@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Shared_Clipboard_Backend.Data;
+using Shared_Clipboard_Backend.Models;
 
 namespace Shared_Clipboard_Backend.Controllers.v1
 {
@@ -8,6 +10,13 @@ namespace Shared_Clipboard_Backend.Controllers.v1
     [ApiVersion("1.0")]
     public class AuthController : ControllerBase
     {
+        private SharedClipboardMySQLDbContex _dbcontext;
+        public AuthController(SharedClipboardMySQLDbContex dbcontext) 
+        {
+            _dbcontext = dbcontext;
+        }
+
+
         [HttpPost("login")]
         public async Task<IActionResult> Login()
         {

@@ -15,7 +15,7 @@ namespace Shared_Clipboard_Backend.Data
             options.UseMySQL(_configuration.GetConnectionString("MySQL"));
         }
 
-        DbSet<User> Users { get; set; }
-        DbSet<Devices> Devices { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Devices> Devices { get; set; }
     }
 }
