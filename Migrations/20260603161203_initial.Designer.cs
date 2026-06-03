@@ -11,7 +11,7 @@ using Shared_Clipboard_Backend.Data;
 namespace Shared_Clipboard_Backend.Migrations
 {
     [DbContext(typeof(MySQLDbContext))]
-    [Migration("20260603125457_initial")]
+    [Migration("20260603161203_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Shared_Clipboard_Backend.Migrations
                 .HasAnnotation("ProductVersion", "10.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.ClipboardItemEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.ClipboardItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,17 +32,17 @@ namespace Shared_Clipboard_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UserEntityId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("ClipboardItemEntity");
+                    b.ToTable("ClipboardItem");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.DeviceEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,17 +56,17 @@ namespace Shared_Clipboard_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UserEntityId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.UserEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,21 +97,21 @@ namespace Shared_Clipboard_Backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.ClipboardItemEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.ClipboardItem", b =>
                 {
-                    b.HasOne("Shared_Clipboard_Backend.Models.Dto.UserEntity", null)
+                    b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
                         .WithMany("Clipboard")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.DeviceEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
                 {
-                    b.HasOne("Shared_Clipboard_Backend.Models.Dto.UserEntity", null)
+                    b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
                         .WithMany("Devices")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Dto.UserEntity", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
                     b.Navigation("Clipboard");
 

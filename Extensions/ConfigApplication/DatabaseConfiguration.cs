@@ -3,7 +3,7 @@ using Shared_Clipboard_Backend.Data;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
-    public static class DatabaseConfigurationExtensions
+    public static class DatabaseConfiguration
     {
         public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
         {

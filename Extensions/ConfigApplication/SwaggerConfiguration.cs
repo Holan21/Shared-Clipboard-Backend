@@ -1,6 +1,6 @@
 ﻿namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
-    public static class SwaggerConfigurationExtension
+    public static class SwaggerConfiguration
     {
         public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
         {

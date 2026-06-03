@@ -9,10 +9,12 @@ namespace Shared_Clipboard_Backend
             var builder = WebApplication.CreateBuilder(args);
 
             var app = builder.AddApiVersions()
-                .AddControllers()
-                .AddSwagger()
                 .AddDatabase()
+                .AddSwagger()
                 .AddServices()
+                .AddRepositories()
+                .AddMappers()
+                .AddControllers()
                 .Build();
 
             if (app.Environment.IsDevelopment()) 

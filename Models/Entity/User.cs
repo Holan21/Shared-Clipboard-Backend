@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Shared_Clipboard_Backend.Models
+namespace Shared_Clipboard_Backend.Models.Entity
 {
     public class User
     {

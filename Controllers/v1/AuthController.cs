@@ -1,21 +1,16 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using Shared_Clipboard_Backend.Data;
-using Shared_Clipboard_Backend.Models;
+using Shared_Clipboard_Backend.Models.Contracts;
+using Shared_Clipboard_Backend.Services.UserService;
 
 namespace Shared_Clipboard_Backend.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:ApiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class AuthController : ControllerBase
+    public class AuthController(IUserService userService) : ControllerBase
     {
-        private MySQLDbContext _dbcontext;
-        public AuthController(MySQLDbContext dbcontext) 
-        {
-            _dbcontext = dbcontext;
-        }
-
+        private readonly IUserService _userService = userService;
 
         [HttpPost("login")]
         public async Task<IActionResult> Login()
@@ -24,8 +19,10 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register([FromBody] UserResponse user)
         {
+            await _userService.Register(user);
+
             return Ok();
         }
 

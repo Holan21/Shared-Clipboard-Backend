@@ -2,16 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Shared_Clipboard_Backend.Models
+namespace Shared_Clipboard_Backend.Models.Entity
 {
-    public class Device
+    public class ClipboardItem
     {
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public string Name { get; set; } = string.Empty;
-        [Required]
-        public string OSName { get; set; } = string.Empty;
+        public string Data { get; set; } = string.Empty;
 
 
     }

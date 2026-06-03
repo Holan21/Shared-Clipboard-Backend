@@ -2,7 +2,7 @@
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
-    public static class ApiVersionConfigureExtensions
+    public static class ApiVersionConfigure
     {
         public static WebApplicationBuilder AddApiVersions(this WebApplicationBuilder builder)
         {
