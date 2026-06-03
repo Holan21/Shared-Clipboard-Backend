@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Shared_Clipboard_Backend.Models.Entity
 {
@@ -8,11 +6,14 @@ namespace Shared_Clipboard_Backend.Models.Entity
     {
         [Key]
         public Guid Id { get; set; }
-        [Required]
-        public string Name { get; set; } = string.Empty;
-        [Required]
-        public string OSName { get; set; } = string.Empty;
 
-
+        [Required]
+        public string OS { get; set; } = string.Empty;
+        [Required]
+        public string AcsebilityToken { get; set; } = string.Empty;
+        [Required]
+        public string Engine { get; set; } = string.Empty;
+        [Required]
+        public string Browser { get; set; } = string.Empty;
     }
 }

@@ -10,8 +10,10 @@ namespace Shared_Clipboard_Backend.Mapper
             return new Device
             {
                  Id = Guid.NewGuid(),
-                 Name = response.Name,
-                 OSName = response.OSName,
+                 OS = response.OS,
+                 AcsebilityToken = response.AcsebilityToken,
+                 Browser = response.Browser,
+                 Engine = response.Engine
             };
         }
     }

@@ -1,7 +1,9 @@
 ﻿using Shared_Clipboard_Backend.Mapper;
 using Shared_Clipboard_Backend.Repositories;
 using Shared_Clipboard_Backend.Services;
+using Shared_Clipboard_Backend.Services.Parsers;
 using Shared_Clipboard_Backend.Services.PasswordHasher;
+using Shared_Clipboard_Backend.Services.UserAgen;
 using Shared_Clipboard_Backend.Services.UserService;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
@@ -26,6 +28,7 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
         {
             builder.Services.AddSingleton<IPasswordHasherSerivce, PasswordHasherService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserAgentParser, UserAgentParser>();
 
             return builder;
         }

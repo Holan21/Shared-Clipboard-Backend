@@ -21,7 +21,7 @@ namespace Shared_Clipboard_Backend.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Username = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Email = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
@@ -46,7 +46,8 @@ namespace Shared_Clipboard_Backend.Migrations
                         name: "FK_ClipboardItem_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -55,8 +56,10 @@ namespace Shared_Clipboard_Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Name = table.Column<string>(type: "longtext", nullable: false),
-                    OSName = table.Column<string>(type: "longtext", nullable: false),
+                    OS = table.Column<string>(type: "longtext", nullable: false),
+                    AcsebilityToken = table.Column<string>(type: "longtext", nullable: false),
+                    Engine = table.Column<string>(type: "longtext", nullable: false),
+                    Browser = table.Column<string>(type: "longtext", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: true)
                 },
                 constraints: table =>
@@ -66,7 +69,8 @@ namespace Shared_Clipboard_Backend.Migrations
                         name: "FK_Devices_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -79,6 +83,17 @@ namespace Shared_Clipboard_Backend.Migrations
                 name: "IX_Devices_UserId",
                 table: "Devices",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username");
         }
 
         /// <inheritdoc />

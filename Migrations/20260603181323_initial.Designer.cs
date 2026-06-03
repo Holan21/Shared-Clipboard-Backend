@@ -11,7 +11,7 @@ using Shared_Clipboard_Backend.Data;
 namespace Shared_Clipboard_Backend.Migrations
 {
     [DbContext(typeof(MySQLDbContext))]
-    [Migration("20260603161203_initial")]
+    [Migration("20260603181323_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -48,11 +48,19 @@ namespace Shared_Clipboard_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("AcsebilityToken")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("OSName")
+                    b.Property<string>("Browser")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Engine")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OS")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -69,7 +77,6 @@ namespace Shared_Clipboard_Backend.Migrations
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -77,7 +84,8 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime(6)");
@@ -94,6 +102,11 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username");
+
                     b.ToTable("Users");
                 });
 
@@ -101,14 +114,16 @@ namespace Shared_Clipboard_Backend.Migrations
                 {
                     b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
                         .WithMany("Clipboard")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
                 {
                     b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
                         .WithMany("Devices")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>

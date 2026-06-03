@@ -21,7 +21,6 @@ namespace Shared_Clipboard_Backend.Repositories
             return result;
         }
 
-
         public async Task AddUser(User user)
         {
             await _dbContext.Users.AddAsync(user);

@@ -1,22 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared_Clipboard_Backend.Data;
-using Shared_Clipboard_Backend.Models;
+﻿
+using Shared_Clipboard_Backend.Mapper;
 using Shared_Clipboard_Backend.Models.Contracts;
 using Shared_Clipboard_Backend.Models.Entity;
 using Shared_Clipboard_Backend.Services.PasswordHasher;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Shared_Clipboard_Backend.Services.UserService
 {
-    public class UserService(IUsersRepositories usersRepositories, IPasswordHasherSerivce passwordHasherSerivce) : IUserService
+    public class UserService
+        (IUsersRepositories usersRepositories, IPasswordHasherSerivce passwordHasherSerivce
+        ,IDeviceMapper deviceMapper) : IUserService
     {
         private readonly IUsersRepositories _usersRepositories = usersRepositories;
         private readonly IPasswordHasherSerivce _passwordHasherService = passwordHasherSerivce;
+        private readonly IDeviceMapper _devicerMapper = deviceMapper;
         public async Task<string> Login(string email, string password)
         {
             throw new NotImplementedException();
         }
-        public async Task Register(UserResponse userReponse)
+        public async Task Register(UserResponse userReponse, Device device)
         {
             var hashed_password = _passwordHasherService.Generate(userReponse.Password);
 
@@ -27,24 +28,10 @@ namespace Shared_Clipboard_Backend.Services.UserService
                 Username = userReponse.Username,
                 CreatedAt = DateTime.UtcNow,
                 Email = userReponse.Email,
-                Devices = new List<Device>() { 
-                    new Device() 
-                    { 
-                        Id = Guid.NewGuid(),
-                        Name = "Test",
-                        OSName = "Windows"
-                    }  
-                },
-                Clipboard = new List<ClipboardItem>()
-                {
-                  new ClipboardItem()
-                  {
-                      Id = Guid.NewGuid(),
-                      Data = "testClipboard"
-                  }
-                }
             };
-            Console.WriteLine(user);
+
+            user.Devices.Add(device);
+
             await _usersRepositories.AddUser(user);
             
         }
