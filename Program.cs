@@ -12,6 +12,7 @@ namespace Shared_Clipboard_Backend
                 .AddControllers()
                 .AddSwagger()
                 .AddDatabase()
+                .AddServices()
                 .Build();
 
             if (app.Environment.IsDevelopment()) 
