@@ -9,7 +9,7 @@ using Shared_Clipboard_Backend.Data;
 
 namespace Shared_Clipboard_Backend.Migrations
 {
-    [DbContext(typeof(SharedClipboardMySQLDbContex))]
+    [DbContext(typeof(MySQLDbContext))]
     partial class SharedClipboardMySQLDbContexModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

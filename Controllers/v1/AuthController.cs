@@ -10,8 +10,8 @@ namespace Shared_Clipboard_Backend.Controllers.v1
     [ApiVersion("1.0")]
     public class AuthController : ControllerBase
     {
-        private SharedClipboardMySQLDbContex _dbcontext;
-        public AuthController(SharedClipboardMySQLDbContex dbcontext) 
+        private MySQLDbContext _dbcontext;
+        public AuthController(MySQLDbContext dbcontext) 
         {
             _dbcontext = dbcontext;
         }

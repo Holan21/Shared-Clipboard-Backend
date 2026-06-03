@@ -10,7 +10,7 @@ using Shared_Clipboard_Backend.Data;
 
 namespace Shared_Clipboard_Backend.Migrations
 {
-    [DbContext(typeof(SharedClipboardMySQLDbContex))]
+    [DbContext(typeof(MySQLDbContext))]
     [Migration("20260603063752_initial")]
     partial class initial
     {

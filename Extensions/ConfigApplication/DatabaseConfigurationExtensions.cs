@@ -7,7 +7,7 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
     {
         public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<SharedClipboardMySQLDbContex>();
+            builder.Services.AddDbContext<MySQLDbContext>();
             return builder;
         }
 

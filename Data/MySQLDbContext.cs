@@ -3,10 +3,10 @@ using Shared_Clipboard_Backend.Models;
 
 namespace Shared_Clipboard_Backend.Data
 {
-    public class SharedClipboardMySQLDbContex : DbContext
+    public class MySQLDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public SharedClipboardMySQLDbContex(IConfiguration configuration)
+        public MySQLDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
