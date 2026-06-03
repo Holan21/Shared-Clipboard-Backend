@@ -12,7 +12,7 @@
         public static WebApplication ShowSwagger(this WebApplication app)
         {
             app.UseSwagger()
-                .UseSwaggerUI();
+               .UseSwaggerUI();
 
             return app;
         }

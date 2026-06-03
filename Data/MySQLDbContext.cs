@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared_Clipboard_Backend.Models;
+using Shared_Clipboard_Backend.Models.Dto;
 
 namespace Shared_Clipboard_Backend.Data
 {
@@ -10,12 +10,10 @@ namespace Shared_Clipboard_Backend.Data
         {
             _configuration = configuration;
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseMySQL(_configuration.GetConnectionString("MySQL"));
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder options) 
+            => options.UseMySQL(_configuration.GetConnectionString("MySQL"));
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Devices> Devices { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<DeviceEntity> Devices { get; set; }
     }
 }
