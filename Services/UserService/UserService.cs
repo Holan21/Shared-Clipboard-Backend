@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared_Clipboard_Backend.Data;
-using Shared_Clipboard_Backend.Models.Dto;
+using Shared_Clipboard_Backend.Models;
 using Shared_Clipboard_Backend.Services.PasswordHasher;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -15,7 +15,7 @@ namespace Shared_Clipboard_Backend.Services.UserService
             throw new NotImplementedException();
         }
 
-        public async Task<string> Register(UserEntity user)
+        public async Task<string> Register(User user)
         {
             throw new NotImplementedException();
         }
