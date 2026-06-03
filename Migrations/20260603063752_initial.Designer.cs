@@ -11,7 +11,7 @@ using Shared_Clipboard_Backend.Data;
 namespace Shared_Clipboard_Backend.Migrations
 {
     [DbContext(typeof(SharedClipboardMySQLDbContex))]
-    [Migration("20260602140906_initial")]
+    [Migration("20260603063752_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -39,7 +39,7 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SharedClipboard");
+                    b.ToTable("ClipboardItem");
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Devices", b =>

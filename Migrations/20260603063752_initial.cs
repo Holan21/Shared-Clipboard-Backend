@@ -33,6 +33,27 @@ namespace Shared_Clipboard_Backend.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ClipboardItem",
+                columns: table => new
+                {
+                    Id = table.Column<uint>(type: "int unsigned", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Data = table.Column<string>(type: "longtext", nullable: false),
+                    UserId = table.Column<uint>(type: "int unsigned", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClipboardItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClipboardItem_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Devices",
                 columns: table => new
                 {
@@ -54,35 +75,14 @@ namespace Shared_Clipboard_Backend.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "SharedClipboard",
-                columns: table => new
-                {
-                    Id = table.Column<uint>(type: "int unsigned", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Data = table.Column<string>(type: "longtext", nullable: false),
-                    UserId = table.Column<uint>(type: "int unsigned", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SharedClipboard", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SharedClipboard_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "IX_ClipboardItem_UserId",
+                table: "ClipboardItem",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Devices_UserId",
                 table: "Devices",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SharedClipboard_UserId",
-                table: "SharedClipboard",
                 column: "UserId");
         }
 
@@ -90,10 +90,10 @@ namespace Shared_Clipboard_Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Devices");
+                name: "ClipboardItem");
 
             migrationBuilder.DropTable(
-                name: "SharedClipboard");
+                name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -1,4 +1,6 @@
-﻿namespace Shared_Clipboard_Backend.Models
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Shared_Clipboard_Backend.Models
 {
     public class Devices
     {

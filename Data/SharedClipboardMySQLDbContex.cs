@@ -10,8 +10,6 @@ namespace Shared_Clipboard_Backend.Data
         {
             _configuration = configuration;
         }
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseMySQL(_configuration.GetConnectionString("MySQL"));
@@ -19,6 +17,5 @@ namespace Shared_Clipboard_Backend.Data
 
         DbSet<User> Users { get; set; }
         DbSet<Devices> Devices { get; set; }
-        DbSet<ClipboardItem> SharedClipboard { get; set; }
     }
 }

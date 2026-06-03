@@ -36,7 +36,7 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SharedClipboard");
+                    b.ToTable("ClipboardItem");
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Devices", b =>
