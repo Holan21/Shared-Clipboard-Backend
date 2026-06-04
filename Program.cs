@@ -1,5 +1,5 @@
 using Shared_Clipboard_Backend.Extensions.ConfigApplication;
-using Shared_Clipboard_Backend.Models.Options;
+using Shared_Clipboard_Backend.Models.Options.JWT;
 
 namespace Shared_Clipboard_Backend
 {
@@ -8,19 +8,20 @@ namespace Shared_Clipboard_Backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var configuration = builder.AddConfiguration() 
-                ?? throw new Exception("Failed to load configuration");
+            var configuration = builder.Configuration;
 
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>() 
                 ?? throw new Exception("Failed to load JWT Configuration");
 
+
+            builder.AddOptions();
+
             builder.Services
-                .AddOptions()
                 .AddDatabase()
                 .AddMappers()
                 .AddRepositories()
                 .AddServices()
-                .AddApiVersions(jwtOptions)
+                .AddApiVersions()
                 .AddAuth(jwtOptions)
                 .AddSwagger()
                 .AddControllers();

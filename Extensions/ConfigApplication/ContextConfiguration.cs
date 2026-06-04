@@ -1,4 +1,6 @@
-﻿using Shared_Clipboard_Backend.Mapper;
+﻿using Microsoft.Extensions.Options;
+using Shared_Clipboard_Backend.Mapper;
+using Shared_Clipboard_Backend.Models.Options.JWT;
 using Shared_Clipboard_Backend.Repositories;
 using Shared_Clipboard_Backend.Services;
 using Shared_Clipboard_Backend.Services.JwtProvider;
@@ -20,8 +22,8 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddSingleton<IPasswordHasherSerivce, PasswordHasherService>();
-            services.AddSingleton<IJwtProvider, JwtProvider>();
+            services.AddScoped<IPasswordHasherSerivce, PasswordHasherService>();
+            services.AddScoped<IJwtProvider, JwtProvider>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserAgentParser, UserAgentParser>();
@@ -34,6 +36,16 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
             services.AddScoped<IDeviceMapper, DeviceMapper>();
 
             return services;
+        }
+
+        public static WebApplicationBuilder AddOptions(this WebApplicationBuilder builder)
+        {
+            var configuration = builder.Configuration;
+
+            builder.Services.Configure<JwtOptions>(configuration.GetSection(
+                nameof(JwtOptions)));
+
+            return builder;
         }
     }
 }

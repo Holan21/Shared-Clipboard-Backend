@@ -1,14 +1,15 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Shared_Clipboard_Backend.Models.Options;
+using Shared_Clipboard_Backend.Models.Options.JWT;
 using System.Text;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
     public static class ApiConfiguration
     {
-        public static IServiceCollection AddApiVersions(this IServiceCollection services, JwtOptions config)
+        public static IServiceCollection AddApiVersions(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
             {
@@ -25,17 +26,19 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
             return services;
         }
 
-        public static IServiceCollection AddAuth(this IServiceCollection services, JwtOptions config)
+        public static IServiceCollection AddAuth(this IServiceCollection services,JwtOptions config)
         {
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                {
                    options.TokenValidationParameters = new()
                    {
-                       ValidateIssuer = false,
-                       ValidateAudience = false,
-                       ValidateLifetime = true,
-                       ValidateIssuerSigningKey = true,
+                       ValidateIssuer = config.TokenValidationParametersOptions.ValidateIssuer,
+                       ValidateAudience = config.TokenValidationParametersOptions.ValidateAudience,
+                       ValidateLifetime = config.TokenValidationParametersOptions.ValidateLifetime,
+                       ValidateIssuerSigningKey = config.TokenValidationParametersOptions.ValidateIssuerSigningKey,
+                       LogValidationExceptions = config.TokenValidationParametersOptions.LogValidationExceptions,
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.SecretKey)),
                    };
 
@@ -43,7 +46,7 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
                    {
                        OnMessageReceived = context =>
                        {
-                           context.Token = context.Request.Cookies["jwtkey"];
+                           context.Token = context.Request.Cookies[config.JwtCookiesKey];
 
                            return Task.CompletedTask;
                        }
