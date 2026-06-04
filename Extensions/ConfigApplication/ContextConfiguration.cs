@@ -1,6 +1,7 @@
 ﻿using Shared_Clipboard_Backend.Mapper;
 using Shared_Clipboard_Backend.Repositories;
 using Shared_Clipboard_Backend.Services;
+using Shared_Clipboard_Backend.Services.JwtProvider;
 using Shared_Clipboard_Backend.Services.Parsers;
 using Shared_Clipboard_Backend.Services.PasswordHasher;
 using Shared_Clipboard_Backend.Services.UserAgen;
@@ -27,6 +28,8 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
         public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IPasswordHasherSerivce, PasswordHasherService>();
+            builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
+
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserAgentParser, UserAgentParser>();
 

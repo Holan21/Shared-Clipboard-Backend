@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shared_Clipboard_Backend.Models.Entity;
 using Shared_Clipboard_Backend.Models.Options;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Shared_Clipboard_Backend.Services.JwtProvider
 {
-    public class JwtProvider
+    public class JwtProvider : IJwtProvider
     {
         private readonly JwtOptions _options;
 
@@ -14,13 +16,20 @@ namespace Shared_Clipboard_Backend.Services.JwtProvider
         {
             _options = options.Value;
         }
-        public async Task<string> Generate()
+        public async Task<string> Generate(User user)
         {
+            Claim[] claims = [
+                new("userName", user.Username), 
+                new("email", user.Email),
+                new("createdAt",user.CreatedAt.ToString())
+                ];
+
             var signingCreadentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
                 SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
+                claims: claims,
                 signingCredentials:signingCreadentials,
                 expires: DateTime.UtcNow.AddHours(_options.ExpiresHours)
                 );
