@@ -10,7 +10,7 @@ namespace Shared_Clipboard_Backend.Repositories
         ) : IUsersRepositories
     {
         private readonly MySQLDbContext _dbContext = dbContext;
-        public async Task<User> GetByEmail(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
             var result = await _dbContext.Users
                 .AsNoTracking()

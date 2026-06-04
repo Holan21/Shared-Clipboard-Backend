@@ -13,6 +13,7 @@ namespace Shared_Clipboard_Backend
                 .AddSwagger()
                 .AddServices()
                 .AddRepositories()
+                .AddOptions()
                 .AddMappers()
                 .AddControllers()
                 .Build();

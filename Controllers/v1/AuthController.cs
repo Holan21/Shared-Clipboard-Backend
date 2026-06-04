@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Shared_Clipboard_Backend.Models.Contracts;
 using Shared_Clipboard_Backend.Services.Parsers;
 using Shared_Clipboard_Backend.Services.UserService;
@@ -19,13 +18,14 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         private readonly IUserAgentParser _parser = parser;
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login([FromBody] LoginResponse login)
         {
+            
             return Ok();
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserResponse user)
+        public async Task<IActionResult> Register([FromBody] RegisterResponse user)
         {
             var device =await parser.ParseAsync(HttpContext.Request.Headers["User-Agent"]);
 

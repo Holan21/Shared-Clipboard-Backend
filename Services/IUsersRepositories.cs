@@ -7,6 +7,6 @@ namespace Shared_Clipboard_Backend.Services
     public interface IUsersRepositories
     {
         public Task AddUser(User user);
-        public Task<User> GetByEmail(string email);
+        public Task<User> GetByEmailAsync(string email);
     }
 }
