@@ -10,7 +10,10 @@ namespace Shared_Clipboard_Backend.Controllers.v1
     [ApiController]
     [Route("api/v{version:ApiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class AuthController(IUserService userService, IUserAgentParser parser) : ControllerBase
+    public class AuthController(
+        IUserService userService, 
+        IUserAgentParser parser
+        ) : ControllerBase
     {
         private readonly IUserService _userService = userService;
         private readonly IUserAgentParser _parser = parser;

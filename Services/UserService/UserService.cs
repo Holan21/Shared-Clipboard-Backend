@@ -6,13 +6,16 @@ using Shared_Clipboard_Backend.Services.PasswordHasher;
 
 namespace Shared_Clipboard_Backend.Services.UserService
 {
-    public class UserService
-        (IUsersRepositories usersRepositories, IPasswordHasherSerivce passwordHasherSerivce
-        ,IDeviceMapper deviceMapper) : IUserService
+    public class UserService(
+        IUsersRepositories usersRepositories, 
+        IPasswordHasherSerivce passwordHasherSerivce,
+        IDeviceMapper deviceMapper
+        ) : IUserService
     {
         private readonly IUsersRepositories _usersRepositories = usersRepositories;
         private readonly IPasswordHasherSerivce _passwordHasherService = passwordHasherSerivce;
         private readonly IDeviceMapper _devicerMapper = deviceMapper;
+
         public async Task<string> Login(string email, string password)
         {
             throw new NotImplementedException();

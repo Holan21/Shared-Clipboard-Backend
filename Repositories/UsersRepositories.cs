@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared_Clipboard_Backend.Data;
-using Shared_Clipboard_Backend.Mapper;
-using Shared_Clipboard_Backend.Models;
-using Shared_Clipboard_Backend.Models.Contracts;
 using Shared_Clipboard_Backend.Models.Entity;
 using Shared_Clipboard_Backend.Services;
 
 namespace Shared_Clipboard_Backend.Repositories
 {
-    public class UsersRepositories(MySQLDbContext dbContext) 
-        : IUsersRepositories
+    public class UsersRepositories(
+        MySQLDbContext dbContext
+        ) : IUsersRepositories
     {
         private readonly MySQLDbContext _dbContext = dbContext;
         public async Task<User> GetByEmail(string email)
