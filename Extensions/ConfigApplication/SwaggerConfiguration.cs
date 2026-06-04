@@ -2,11 +2,11 @@
 {
     public static class SwaggerConfiguration
     {
-        public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
+        public static IServiceCollection AddSwagger(this IServiceCollection service)
         {
-            builder.Services.AddSwaggerGen();
+            service.AddSwaggerGen();
 
-            return builder;
+            return service;
         }
 
         public static WebApplication ShowSwagger(this WebApplication app)

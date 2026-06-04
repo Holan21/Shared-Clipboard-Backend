@@ -11,36 +11,29 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
     public static class ContextConfiguration
     {
-        public static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            builder.Services.AddControllers();
-
-            return builder;
-        }
-
-        public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddScoped<IUsersRepositories, UsersRepositories>();
+            services.AddScoped<IUsersRepositories, UsersRepositories>();
             
-            return builder;
+            return services;
         }
 
-        public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            builder.Services.AddSingleton<IPasswordHasherSerivce, PasswordHasherService>();
-            builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
+            services.AddSingleton<IPasswordHasherSerivce, PasswordHasherService>();
+            services.AddSingleton<IJwtProvider, JwtProvider>();
 
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserAgentParser, UserAgentParser>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserAgentParser, UserAgentParser>();
 
-            return builder;
+            return services;
         }
 
-        public static WebApplicationBuilder AddMappers(this WebApplicationBuilder builder)
+        public static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            builder.Services.AddScoped<IDeviceMapper, DeviceMapper>();
+            services.AddScoped<IDeviceMapper, DeviceMapper>();
 
-            return builder;
+            return services;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Shared_Clipboard_Backend.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseMySQL(_configuration.GetConnectionString("MySQL"));
+            options.UseMySQL(_configuration.GetConnectionString("MySQL") );
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared_Clipboard_Backend.Data;
+﻿using Shared_Clipboard_Backend.Data;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
     public static class DatabaseConfiguration
     {
-        public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
+        public static IServiceCollection AddDatabase(this IServiceCollection services)
         {
-            builder.Services.AddDbContext<MySQLDbContext>();
-            return builder;
+            services.AddDbContext<MySQLDbContext>();
+
+            return services;
         }
 
     }

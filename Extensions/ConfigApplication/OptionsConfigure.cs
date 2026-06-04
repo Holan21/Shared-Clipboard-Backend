@@ -7,6 +7,7 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
         public static WebApplicationBuilder AddOptions(this WebApplicationBuilder builder)
         {
             var configuration = builder.Configuration;
+
             builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
             return builder;
