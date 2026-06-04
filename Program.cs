@@ -8,9 +8,11 @@ namespace Shared_Clipboard_Backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var configuration = builder.AddConfiguration() ?? throw new Exception("Failed to load configuration");
+            var configuration = builder.AddConfiguration() 
+                ?? throw new Exception("Failed to load configuration");
 
-            var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
+            var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>() 
+                ?? throw new Exception("Failed to load JWT Configuration");
 
             builder.Services
                 .AddOptions()
@@ -31,9 +33,7 @@ namespace Shared_Clipboard_Backend
             app.ConfigureApllication()
                 .UseAuth();
 
-            app.MapControllers();
             app.Run();
-
         }
     }
 }
