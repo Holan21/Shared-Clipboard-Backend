@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared_Clipboard_Backend.Models.Contracts;
 using Shared_Clipboard_Backend.Services.Parsers;
@@ -20,6 +21,9 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginResponse login)
         {
+            var token = await _userService.Login(login.email, login.password);
+
+            Response.Cookies.Append("jwtkey", token);
             
             return Ok();
         }
@@ -27,7 +31,7 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterResponse user)
         {
-            var device =await parser.ParseAsync(HttpContext.Request.Headers["User-Agent"]);
+            var device = await _parser.ParseAsync(Request.Headers["User-Agent"]);
 
             await _userService.Register(user,device);
 
@@ -35,6 +39,7 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         }
 
         [HttpGet("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             return Ok();
