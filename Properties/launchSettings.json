@@ -15,7 +15,7 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7181;http://localhost:5161",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger"
     },
     "WSL": {

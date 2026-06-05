@@ -1,18 +1,18 @@
 ﻿namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
 {
-    public static class SwaggerConfigurationExtension
+    public static class SwaggerConfiguration
     {
-        public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
+        public static IServiceCollection AddSwagger(this IServiceCollection service)
         {
-            builder.Services.AddSwaggerGen();
+            service.AddSwaggerGen();
 
-            return builder;
+            return service;
         }
 
         public static WebApplication ShowSwagger(this WebApplication app)
         {
             app.UseSwagger()
-                .UseSwaggerUI();
+               .UseSwaggerUI();
 
             return app;
         }

@@ -11,7 +11,7 @@ using Shared_Clipboard_Backend.Data;
 namespace Shared_Clipboard_Backend.Migrations
 {
     [DbContext(typeof(MySQLDbContext))]
-    [Migration("20260603063752_initial")]
+    [Migration("20260603181323_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -22,18 +22,18 @@ namespace Shared_Clipboard_Backend.Migrations
                 .HasAnnotation("ProductVersion", "10.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.ClipboardItem", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.ClipboardItem", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<uint>("UserId")
-                        .HasColumnType("int unsigned");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -42,22 +42,30 @@ namespace Shared_Clipboard_Backend.Migrations
                     b.ToTable("ClipboardItem");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Devices", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("AcsebilityToken")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("OSName")
+                    b.Property<string>("Browser")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<uint>("UserId")
-                        .HasColumnType("int unsigned");
+                    b.Property<string>("Engine")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OS")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -66,14 +74,18 @@ namespace Shared_Clipboard_Backend.Migrations
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.User", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime(6)");
@@ -90,36 +102,35 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.ClipboardItem", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.ClipboardItem", b =>
                 {
-                    b.HasOne("Shared_Clipboard_Backend.Models.User", "User")
-                        .WithMany("SharedClipboard")
+                    b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
+                        .WithMany("Clipboard")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Devices", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
                 {
-                    b.HasOne("Shared_Clipboard_Backend.Models.User", "User")
+                    b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
                         .WithMany("Devices")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.User", b =>
+            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
-                    b.Navigation("Devices");
+                    b.Navigation("Clipboard");
 
-                    b.Navigation("SharedClipboard");
+                    b.Navigation("Devices");
                 });
 #pragma warning restore 612, 618
         }
