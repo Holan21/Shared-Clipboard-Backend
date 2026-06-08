@@ -19,7 +19,7 @@ namespace Shared_Clipboard_Backend.Services.UserService
 
         public async Task<string> Login(string email, string password)
         {
-            var user = await _usersRepositories.GetByEmailAsync(email);
+              var user = await _usersRepositories.GetByEmailAsync(email);
 
             var result = _passwordHasherService.Verify(password, user.Password);
 

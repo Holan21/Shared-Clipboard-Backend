@@ -22,7 +22,7 @@ namespace Shared_Clipboard_Backend
                 .AddRepositories()
                 .AddServices()
                 .AddApiVersions()
-                .AddAuth(jwtOptions)
+                .AddAuthFromHeader(jwtOptions)
                 .AddSwagger()
                 .AddControllers();
 

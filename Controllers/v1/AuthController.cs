@@ -27,9 +27,7 @@ namespace Shared_Clipboard_Backend.Controllers.v1
         {
             var token = await _userService.Login(login.email, login.password);
 
-            Response.Cookies.Append(_config.JwtCookiesKey, token);
-            
-            return Ok();
+            return Ok(token);
         }
 
         [HttpPost("register")]

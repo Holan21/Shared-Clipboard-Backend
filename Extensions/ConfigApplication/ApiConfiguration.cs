@@ -26,7 +26,28 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
             return services;
         }
 
-        public static IServiceCollection AddAuth(this IServiceCollection services,JwtOptions config)
+        public static IServiceCollection AddAuthFromHeader(this IServiceCollection services,JwtOptions config)
+        {
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+               {
+                   options.TokenValidationParameters = new()
+                   {
+                       ValidateIssuer = config.TokenValidationParametersOptions.ValidateIssuer,
+                       ValidateAudience = config.TokenValidationParametersOptions.ValidateAudience,
+                       ValidateLifetime = config.TokenValidationParametersOptions.ValidateLifetime,
+                       ValidateIssuerSigningKey = config.TokenValidationParametersOptions.ValidateIssuerSigningKey,
+                       LogValidationExceptions = config.TokenValidationParametersOptions.LogValidationExceptions,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.SecretKey)),
+                   };
+               });
+
+            return services;
+
+        }
+
+        public static IServiceCollection AddAuthFromCookies(this IServiceCollection services, JwtOptions config)
         {
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -56,6 +77,7 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
             return services;
 
         }
+
 
         public static WebApplication UseAuth(this WebApplication application)
         {
