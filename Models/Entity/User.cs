@@ -17,8 +17,6 @@ namespace Shared_Clipboard_Backend.Models.Entity
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? LastLogin { get; set; } = null;
         [Required,NotNull]
-        public List<Device> Devices { get; set; } = new ();
-        [Required,NotNull]
         public List<ClipboardItem> Clipboard { get; set; } = new ();
     }
 }

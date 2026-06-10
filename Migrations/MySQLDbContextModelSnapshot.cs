@@ -39,38 +39,6 @@ namespace Shared_Clipboard_Backend.Migrations
                     b.ToTable("ClipboardItem");
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("AcsebilityToken")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Engine")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("OS")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Devices");
-                });
-
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -115,19 +83,9 @@ namespace Shared_Clipboard_Backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.Device", b =>
-                {
-                    b.HasOne("Shared_Clipboard_Backend.Models.Entity.User", null)
-                        .WithMany("Devices")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
                 {
                     b.Navigation("Clipboard");
-
-                    b.Navigation("Devices");
                 });
 #pragma warning restore 612, 618
         }

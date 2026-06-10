@@ -1,5 +1,4 @@
 ﻿
-using Shared_Clipboard_Backend.Mapper;
 using Shared_Clipboard_Backend.Models.Contracts;
 using Shared_Clipboard_Backend.Models.Entity;
 using Shared_Clipboard_Backend.Services.JwtProvider;
@@ -31,7 +30,7 @@ namespace Shared_Clipboard_Backend.Services.UserService
             var token = await _jwtProvider.Generate(user);
             return token;
         }
-        public async Task Register(RegisterResponse userReponse, Device device)
+        public async Task Register(RegisterResponse userReponse)
         {
             var hashed_password = _passwordHasherService.Generate(userReponse.Password);
 
@@ -44,7 +43,6 @@ namespace Shared_Clipboard_Backend.Services.UserService
                 Email = userReponse.Email,
             };
 
-            user.Devices.Add(device);
 
             await _usersRepositories.AddUser(user);
             

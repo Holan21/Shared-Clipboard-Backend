@@ -12,8 +12,6 @@ namespace Shared_Clipboard_Backend.Repositories
         private readonly MySQLDbContext _dbContext = dbContext;
         public async Task<User> GetByEmailAsync(string email)
         {
-
-
             var result = await _dbContext.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(user => user.Email == email) ?? throw new Exception();

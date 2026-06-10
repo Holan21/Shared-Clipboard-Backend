@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared_Clipboard_Backend.Configuration;
-using Shared_Clipboard_Backend.Models;
 using Shared_Clipboard_Backend.Models.Entity;
 
 namespace Shared_Clipboard_Backend.Data
@@ -21,6 +20,5 @@ namespace Shared_Clipboard_Backend.Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<Device> Devices { get; set; }
     }
 }

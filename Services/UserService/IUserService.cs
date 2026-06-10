@@ -6,6 +6,6 @@ namespace Shared_Clipboard_Backend.Services.UserService
     public interface IUserService
     {
         public Task<string> Login(string email, string password); 
-        public Task Register(RegisterResponse user, Device deviceReponse);
+        public Task Register(RegisterResponse user);
     }
 }

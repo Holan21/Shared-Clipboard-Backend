@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shared_Clipboard_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,37 +51,9 @@ namespace Shared_Clipboard_Backend.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    OS = table.Column<string>(type: "longtext", nullable: false),
-                    AcsebilityToken = table.Column<string>(type: "longtext", nullable: false),
-                    Engine = table.Column<string>(type: "longtext", nullable: false),
-                    Browser = table.Column<string>(type: "longtext", nullable: false),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Devices_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
             migrationBuilder.CreateIndex(
                 name: "IX_ClipboardItem_UserId",
                 table: "ClipboardItem",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Devices_UserId",
-                table: "Devices",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -101,9 +73,6 @@ namespace Shared_Clipboard_Backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ClipboardItem");
-
-            migrationBuilder.DropTable(
-                name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "Users");

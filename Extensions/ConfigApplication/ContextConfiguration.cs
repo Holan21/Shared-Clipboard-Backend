@@ -1,12 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
-using Shared_Clipboard_Backend.Mapper;
 using Shared_Clipboard_Backend.Models.Options.JWT;
 using Shared_Clipboard_Backend.Repositories;
 using Shared_Clipboard_Backend.Services;
 using Shared_Clipboard_Backend.Services.JwtProvider;
-using Shared_Clipboard_Backend.Services.Parsers;
 using Shared_Clipboard_Backend.Services.PasswordHasher;
-using Shared_Clipboard_Backend.Services.UserAgen;
 using Shared_Clipboard_Backend.Services.UserService;
 
 namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
@@ -26,14 +23,12 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
             services.AddScoped<IJwtProvider, JwtProvider>();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserAgentParser, UserAgentParser>();
 
             return services;
         }
 
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            services.AddScoped<IDeviceMapper, DeviceMapper>();
 
             return services;
         }
