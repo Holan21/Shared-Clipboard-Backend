@@ -1,3 +1,6 @@
+using Shared_Clipboard_Backend.Extensions.ConfigApplication;
+using Shared_Clipboard_Backend.Hubs;
+using Shared_Clipboard_Backend.Models.Options.JWT;
 
 namespace Shared_Clipboard_Backend
 {
@@ -6,31 +9,36 @@ namespace Shared_Clipboard_Backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            // Add services to the container.
+            var configuration = builder.Configuration;
 
-            builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+            var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>() 
+                ?? throw new Exception("Failed to load JWT Configuration");
+
+
+            builder.AddOptions();
+
+            builder.Services
+                .AddDatabase()
+                .AddMappers()
+                .AddRepositories()
+                .AddServices()
+                .AddApiVersions()
+                .AddAuthFromHeader(jwtOptions)
+                .AddSwagger()
+                .AddControllers();
+
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            if (app.Environment.IsDevelopment()) 
+                app.ShowSwagger();
 
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+            app.ConfigureApllication()
+                .UseAuth();
 
 
-            app.MapControllers();
-
+            app.MapHub<ClipboardHub>("/api/v1/hub/clipboard");
             app.Run();
         }
     }
