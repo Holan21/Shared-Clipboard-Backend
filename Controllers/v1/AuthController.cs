@@ -35,12 +35,5 @@ namespace Shared_Clipboard_Backend.Controllers.v1
 
             return Ok();
         }
-
-        [HttpGet("logout")]
-        [Authorize]
-        public async Task<IActionResult> Logout()
-        {
-            return Ok();
-        }
     }
 }

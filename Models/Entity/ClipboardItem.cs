@@ -16,6 +16,6 @@ namespace Shared_Clipboard_Backend.Models.Entity
         [Required]
         public Guid UserId { get; set; }
 
-        public virtual User User { get; set; } = null!;
+        public User User { get; set; } = null!;
     }
 }
