@@ -32,18 +32,19 @@ namespace Shared_Clipboard_Backend.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ClipboardItem",
+                name: "ClipboardItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Data = table.Column<string>(type: "longtext", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClipboardItem", x => x.Id);
+                    table.PrimaryKey("PK_ClipboardItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClipboardItem_Users_UserId",
+                        name: "FK_ClipboardItems_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -52,8 +53,8 @@ namespace Shared_Clipboard_Backend.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClipboardItem_UserId",
-                table: "ClipboardItem",
+                name: "IX_ClipboardItems_UserId",
+                table: "ClipboardItems",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -72,7 +73,7 @@ namespace Shared_Clipboard_Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClipboardItem");
+                name: "ClipboardItems");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -13,7 +13,8 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUsersRepositories, UsersRepositories>();
-            
+            services.AddScoped<ICLipboardRepositories, ClipboardRepositories>();
+
             return services;
         }
 
@@ -21,9 +22,8 @@ namespace Shared_Clipboard_Backend.Extensions.ConfigApplication
         {
             services.AddScoped<IPasswordHasherSerivce, PasswordHasherService>();
             services.AddScoped<IJwtProvider, JwtProvider>();
-
             services.AddScoped<IUserService, UserService>();
-
+            services.AddSingleton<ClipboardNotifier>();
             return services;
         }
 

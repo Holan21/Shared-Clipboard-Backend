@@ -1,4 +1,5 @@
 using Shared_Clipboard_Backend.Extensions.ConfigApplication;
+using Shared_Clipboard_Backend.Hubs;
 using Shared_Clipboard_Backend.Models.Options.JWT;
 
 namespace Shared_Clipboard_Backend
@@ -26,6 +27,8 @@ namespace Shared_Clipboard_Backend
                 .AddSwagger()
                 .AddControllers();
 
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment()) 
@@ -34,6 +37,8 @@ namespace Shared_Clipboard_Backend
             app.ConfigureApllication()
                 .UseAuth();
 
+
+            app.MapHub<ClipboardHub>("/api/v1/hub/clipboard");
             app.Run();
         }
     }

@@ -20,10 +20,9 @@ namespace Shared_Clipboard_Backend.Configuration
             builder.HasIndex(u => u.Username);
             builder.HasIndex(u => u.Email).IsUnique();
 
-
-            builder.HasMany<ClipboardItem>("Clipboard")
-                   .WithOne()
-                   .HasForeignKey("UserId")
+            builder.HasMany(u => u.Clipboard)
+                   .WithOne(c => c.User)
+                   .HasForeignKey(c => c.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

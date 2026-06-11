@@ -25,6 +25,9 @@ namespace Shared_Clipboard_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -36,7 +39,7 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ClipboardItem");
+                    b.ToTable("ClipboardItems");
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>

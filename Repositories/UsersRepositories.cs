@@ -2,6 +2,7 @@
 using Shared_Clipboard_Backend.Data;
 using Shared_Clipboard_Backend.Models.Entity;
 using Shared_Clipboard_Backend.Services;
+using System.Diagnostics;
 
 namespace Shared_Clipboard_Backend.Repositories
 {
@@ -24,6 +25,8 @@ namespace Shared_Clipboard_Backend.Repositories
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
         }
+
+
 
     }
 }

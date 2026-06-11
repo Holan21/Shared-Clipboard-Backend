@@ -15,7 +15,8 @@ namespace Shared_Clipboard_Backend.Services.JwtProvider
         public async Task<string> Generate(User user)
         {
             Claim[] claims = [
-                new("userName", user.Username), 
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new("userName", user.Username),
                 new("email", user.Email),
                 new("createdAt",user.CreatedAt.ToString())
                 ];

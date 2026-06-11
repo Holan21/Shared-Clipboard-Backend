@@ -11,7 +11,7 @@ using Shared_Clipboard_Backend.Data;
 namespace Shared_Clipboard_Backend.Migrations
 {
     [DbContext(typeof(MySQLDbContext))]
-    [Migration("20260610085542_Initial")]
+    [Migration("20260610172134_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,6 +28,9 @@ namespace Shared_Clipboard_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -39,7 +42,7 @@ namespace Shared_Clipboard_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ClipboardItem");
+                    b.ToTable("ClipboardItems");
                 });
 
             modelBuilder.Entity("Shared_Clipboard_Backend.Models.Entity.User", b =>
